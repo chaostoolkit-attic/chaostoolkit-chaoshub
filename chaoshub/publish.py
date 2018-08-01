@@ -13,8 +13,9 @@ def publish_to_hub(hub_base_url: str, token: str, org: str,
                                       ws=workspace)
         logger.info("Publishing journal to Chaos Hub at " +
                     "{url}".format(url=url))
+        token_contents = "Bearer {token}".format(token=token)
         r = requests.put(url, headers={"Accept": "application/json",
-                                       "CHAOSHUB-TOKEN": token},
+                                       "Authorization": token_contents},
                          json=journal)
         if r.status_code != 200:
             logger.warning("Experimental findings in " +
