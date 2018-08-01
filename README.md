@@ -48,7 +48,7 @@ Chaos Hub. The `chaos publish` command enables you to manually push your experim
 findings, typically recorded in the `journal.json`, to your Chaos Hub account.
 
 By default, once you have logged into your Chaos Hub you will automatically publish
-your experiment's findings to your own organisation and workspace when you execute 
+your experiment's findings to your own organization and workspace when you execute 
 `chaos run`. You can turn this behaviour off by specifying `--no-publish` as shown here:
 
 ```
