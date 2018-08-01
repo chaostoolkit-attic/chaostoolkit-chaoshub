@@ -29,13 +29,12 @@ def login(ctx: click.Context):
 
 @click.command()
 @click.argument('journal')
-@click.option('--organisation', default="default",
-              help='Organisation to push the experiment results to.')
+@click.option('--org', default="default",
+              help='Organization to push the experiment results to.')
 @click.option('--workspace', default="default",
               help='Workspace to push the experiment results to.')
 @click.pass_context
-def publish(ctx: click.Context, journal: str, organisation: str,
-            workspace: str):
+def publish(ctx: click.Context, journal: str, org: str, workspace: str):
     """
     Publish your experiment's findings to a Chaos Hub.
 
@@ -50,8 +49,8 @@ def publish(ctx: click.Context, journal: str, organisation: str,
     if hub_url and token:
         with io.open(journal) as f:
             journal_json = json.load(f)
-            publish_to_hub(hub_url, token, organisation, workspace, journal,
+            publish_to_hub(hub_url, token, org, workspace, journal,
                            journal_json)
     else:
         logger.warning("No Chaos Hub configured. Please execute " +
-                       "`chaos login hub` before attempting to publish.")
+                       "`chaos login` before attempting to publish.")

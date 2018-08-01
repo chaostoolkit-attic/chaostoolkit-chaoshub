@@ -5,11 +5,11 @@ from logzero import logger
 __all__ = ["publish_to_hub"]
 
 
-def publish_to_hub(hub_base_url: str, token: str, organisation: str,
+def publish_to_hub(hub_base_url: str, token: str, org: str,
                    workspace: str, journal_path: str, journal: dict):
     if hub_base_url and token:
         url = "{u}/{org}/{ws}".format(u=hub_base_url,
-                                      org=organisation,
+                                      org=org,
                                       ws=workspace)
         logger.info("Publishing journal to Chaos Hub at " +
                     "{url}".format(url=url))
@@ -26,4 +26,4 @@ def publish_to_hub(hub_base_url: str, token: str, organisation: str,
                         .format(j=journal_path, u=url))
     else:
         logger.debug("No Chaos Hub configured. Please execute " +
-                     "`chaos login hub` before attempting to publish.")
+                     "`chaos login` before attempting to publish.")
