@@ -6,4 +6,4 @@
 
 ### Added
 
--   initial release
+-   Initial release
