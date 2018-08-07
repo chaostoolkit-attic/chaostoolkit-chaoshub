@@ -15,7 +15,7 @@ def set_chaos_hub_settings(hub_url: str, token: str, settings: Settings):
 
     if 'chaoshub' not in vendors:
         vendors['chaoshub'] = {}
-    
+
     vendors['chaoshub'].update({
         'hub_url': hub_url,
         'token': token

@@ -26,7 +26,7 @@ __all__ = ["run"]
 @click.argument('path', type=click.Path(exists=True))
 @click.pass_context
 def run(ctx: click.Context, path: str, org: str = None,
-        workspace: str = None, journal_path: str="./journal.json",
+        workspace: str = None, journal_path: str = "./journal.json",
         dry: bool = False, no_validation: bool = False,
         no_publish: bool = False):
 
@@ -37,7 +37,7 @@ def run(ctx: click.Context, path: str, org: str = None,
 
     if no_publish:
         return journal
-    
+
     settings = load_settings()
     hub_url = settings.get('vendor', {}).get('chaoshub', {}).get('hub_url')
     token = settings.get('vendor', {}).get('chaoshub', {}).get('token')
@@ -45,7 +45,7 @@ def run(ctx: click.Context, path: str, org: str = None,
     if not org:
         org = settings.get('vendor', {}).get('chaoshub', {}).get(
             'default_org')
-    
+
     if not workspace:
         workspace = settings.get('vendor', {}).get('chaoshub', {}).get(
             'default_workspace')

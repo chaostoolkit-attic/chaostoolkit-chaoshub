@@ -69,7 +69,7 @@ def publish_to_hub(hub_base_url: str, token: str, org: str,
 
         experiment_id = response["id"]
         logger.info("Publishing journal to Chaos Hub at {}".format(url))
-        
+
         url = build_run_url(url, experiment_id)
         r = requests.post(url, headers=headers, json=journal)
 
