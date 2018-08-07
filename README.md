@@ -1,6 +1,6 @@
 # chaostoolkit-chaoshub
 
-[![Build Status](https://travis-ci.org/chaostoolkit-incubator/chaostoolkit-chaoshub.svg?branch=master)](https://travis-ci.org/chaostoolkit-incubator/chaostoolkit-chaoshub)
+[![Build Status](https://travis-ci.com/chaostoolkit-incubator/chaostoolkit-chaoshub.svg?branch=master)](https://travis-ci.com/chaostoolkit-incubator/chaostoolkit-chaoshub)
 
 The Chaos Hub plugin library.
 
