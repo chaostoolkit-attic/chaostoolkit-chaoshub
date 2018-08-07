@@ -1,23 +1,19 @@
 language: python
-
 python:
-  - 3.5
-  - 3.6
-
+- 3.5
+- 3.6
 install:
-  - pip install -r requirements.txt -r requirements-dev.txt
-
+- pip install -r requirements.txt -r requirements-dev.txt
 env:
   global:
-  - PYPI_USER_NAME: "chaostoolkit"
-  - secure: "zmofO6rJV8r2VBlHxgPcJ4MRVOx1uelLeIXy9BbSHAT6oZmrlAehmY8ifMKU1cdrtv19xdciLLE+LnzwUw/9REB9jJ75dQgUepVQSDlKFaj0vnZw3Xnu8YII2MBJ/hjt6n23SbM4SDEF+ipEPiQde6nhg91S/Buuo9VRLglLDt6MX4xBbKPeSpU9tJuBauzVFMDhK2tSJlbwEzMKHVroP2L+MxTKl0skhKiBiMDkrPjpVAPdURZ2ZQ0/Iwgin1/g80GFXWhqzcojB1aTUW8SJMZU+20fD0zzn+Jpssl4MXo9TyacsR65XCXXlk+cZokckMDa/bTgUMAL//UF5ix9t06tDBntBwfzjMxRzIej3UY4y+xLsp7QmHB6Es1uZH2R72h+L9P9D4KKdBXgQ6yKfPAw4ujdKhBoUqbLmj9niZ8Otb+/MtPpKu6nEDwsLT0U7p8zigI/SpNdvegzYCsirRqtDH89PZd7P8sAHbay++VmIGyRoQk93HyD5h4Rd6/OQw46x+nUhDhPX9uEEug6V1AXrCJhfh5h2oyuGU3gfF6JY9ONNxm8wlWEUACR0eIbHZhH5joOMUQsFeex+FKiY2JexAtuMr8W5pqCfS8gK1U+O/hbXViwGFBsgJmMFV1ZJkpU7FiFdmSCjIaQS84qIoWyQyC39PWvLLlGMYPj8eI="
-
+  - PYPI_USER_NAME: chaostoolkit
+  - secure: Uz5MVceYK5xBGI6fJzXv9MjaAqzTLoetq/bKaHxzXTDrHHNf2P1FrlRa/6+WF6P0GizYVYtSZ0dLX81WmDZcm4r1cJUc8aZb5p796o1iWHntsHgx0JchtaOn5iDzHYseBG5BwHZh7qiIwvjrhrCrls0EmPxauWn4e30gSnw/KRysAoSfVp6f2g+X3l26/Bmfy4TLf5a+QN0JmoCB6VjKhpIJTHEfJ5MNBTAUdD3fAm9V5UA5xtytBVyLwH8p+GSowt3Ii1N+Lsi026/hAy5LeTJt+9cQ5JmhauPULiWX1nT9pJF9ehY8chaU5iq1z3/Y7gVacyNR7j4PPgOOQMXr6u7esRnOOBIHMG8SFeYXzKoUrXtHSmVQLSl9ffiazjILIiEd7adYcgSBKpJ8fsjCQyyNINYvgkgmhFo+s6KwsKZUxs8YGG36fXK5Xfa4Dq+30lPXKgNK/M7JFbaQU7kQ4KthvpBkUFaX43GsR0rJxzawFnfTuHoeU1HabTHOvtPgQYRtXkrgDapd2AHCm+sFkPOeiERoNJOMcLqvPiZcmYQsl/G05JvfHInwhSFcf00b6oYnMs4xe/38LjO2+SiUG69yxFWwWuOZHA55AiFu6lbCRU9j9jEpcp2FPy7hkc2H9tfUt8XG447e4oGcfwWZ3k1+7NRWGToJm69U1DRZTAQ=
 script:
-  - bash ci.bash
+- bash ci.bash
 notifications:
   webhooks:
     urls:
-    - 'https://webhook.atomist.com/atomist/travis/teams/T76U4GPGF'
+    - https://webhook.atomist.com/atomist/travis/teams/T76U4GPGF
     on_cancel: always
     on_error: always
     on_start: always
