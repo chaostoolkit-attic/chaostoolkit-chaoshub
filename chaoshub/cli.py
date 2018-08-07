@@ -2,14 +2,15 @@
 import io
 import json
 
-from chaoshub.publish import publish_to_hub
-from chaoshub.settings import update_chaos_hub_settings_in_place
-from chaoslib.settings import load_settings, save_settings
-
+from chaoslib.settings import load_settings, save_settings, \
+    CHAOSTOOLKIT_CONFIG_PATH
 import click
 from logzero import logger
 
-__all__ = ["login"]
+from chaoshub.publish import publish_to_hub
+from chaoshub.settings import set_chaos_hub_settings
+
+__all__ = ["login", "publish"]
 
 
 @click.command()
@@ -19,12 +20,19 @@ def login(ctx: click.Context):
     Login to a Chaos Hub.
     """
     settings = load_settings()
-    hub_url = click.prompt(click.style("Chaos Hub Url", fg='green'), type=str)
+
+    hub_url = click.prompt(
+        click.style("Chaos Hub Url", fg='green'), type=str, show_default=True,
+        default="https://chaoshub.com")
+
     token = click.prompt(
         click.style("Chaos Hub Token", fg='green'), type=str, hide_input=True)
-    update_chaos_hub_settings_in_place(hub_url, token, settings)
+
+    set_chaos_hub_settings(hub_url, token, settings)
     save_settings(settings)
-    click.echo("Chaos Hub details saved")
+
+    click.echo("Chaos Hub details saved at {}".format(
+        CHAOSTOOLKIT_CONFIG_PATH))
 
 
 @click.command()
@@ -41,16 +49,11 @@ def publish(ctx: click.Context, journal: str, org: str, workspace: str):
     \b
     In order to benefit from these features, you must have registered with
     a Chaos Hub and retrieved an access token. You should set that token in the
-    configuration file with `chaos login hub`.
+    configuration file with `chaos login`.
     """
     settings = load_settings()
     hub_url = settings.get('vendor', {}).get('chaoshub', {}).get('hub_url')
     token = settings.get('vendor', {}).get('chaoshub', {}).get('token')
-    if hub_url and token:
-        with io.open(journal) as f:
-            journal_json = json.load(f)
-            publish_to_hub(hub_url, token, org, workspace, journal,
-                           journal_json)
-    else:
-        logger.warning("No Chaos Hub configured. Please execute " +
-                       "`chaos login` before attempting to publish.")
+
+    with io.open(journal) as f:
+        publish_to_hub(hub_url, token, org, workspace, journal, json.load(f))

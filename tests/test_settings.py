@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 
-from chaoshub.settings import update_chaos_hub_settings_in_place
+from chaoshub.settings import set_chaos_hub_settings
 
 def test_adding_new_chaos_hub_settings():
     settings = {}
     hub_url = "myhub"
     token = "mytoken"
-    update_chaos_hub_settings_in_place(hub_url,token,settings)
+    set_chaos_hub_settings(hub_url,token, settings)
     assert 'vendor' in settings
     assert 'chaoshub' in settings['vendor']
     assert 'hub_url' in settings['vendor']['chaoshub']
@@ -24,7 +24,7 @@ def test_updating_existing_chaos_hub_settings():
     }}
     hub_url = "myhub"
     token = "mytoken"
-    update_chaos_hub_settings_in_place(hub_url,token,settings)
+    set_chaos_hub_settings(hub_url,token, settings)
     assert 'vendor' in settings
     assert 'chaoshub' in settings['vendor']
     assert 'hub_url' in settings['vendor']['chaoshub']
@@ -43,7 +43,7 @@ def test_only_updating_existing_chaos_hub_settings():
     }}
     hub_url = "myhub"
     token = "mytoken"
-    update_chaos_hub_settings_in_place(hub_url,token,settings)
+    set_chaos_hub_settings(hub_url,token, settings)
     assert 'vendor' in settings
     assert 'chaoshub' in settings['vendor']
     assert 'hub_url' in settings['vendor']['chaoshub']
