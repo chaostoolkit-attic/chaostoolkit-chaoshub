@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
-import json
-
 from chaoslib.settings import load_settings
+from chaoslib.types import Journal
 from chaostoolkit.cli import run as chtk_run
-from chaoshub.publish import publish_to_hub
-
 import click
+from logzero import logger
+
+from . import get_context
+from .publish import publish_to_hub
 
 __all__ = ["run"]
 
@@ -23,33 +24,24 @@ __all__ = ["run"]
               help='Organization to push the experiment results to.')
 @click.option('--workspace',
               help='Workspace to push the experiment results to.')
-@click.argument('path', type=click.Path(exists=True))
+@click.argument('source')
 @click.pass_context
-def run(ctx: click.Context, path: str, org: str = None,
+def run(ctx: click.Context, source: str, org: str = None,
         workspace: str = None, journal_path: str = "./journal.json",
         dry: bool = False, no_validation: bool = False,
-        no_publish: bool = False):
-
+        no_publish: bool = False) -> Journal:
     # call the original chaostoolkit run command
     journal = ctx.invoke(
-        chtk_run, path=path, journal_path=journal_path, dry=dry,
-        no_validation=no_validation)
+        chtk_run, source=source, journal_path=journal_path, dry=dry,
+        no_validation=no_validation, fail_fast=False)
 
     if no_publish:
         return journal
 
-    settings = load_settings()
-    hub_url = settings.get('vendor', {}).get('chaoshub', {}).get('hub_url')
-    token = settings.get('vendor', {}).get('chaoshub', {}).get('token')
-
-    if not org:
-        org = settings.get('vendor', {}).get('chaoshub', {}).get(
-            'default_org')
-
-    if not workspace:
-        workspace = settings.get('vendor', {}).get('chaoshub', {}).get(
-            'default_workspace')
-
-    publish_to_hub(hub_url, token, org, workspace, journal_path, journal)
+    settings_path = ctx.obj["settings_path"]
+    settings = load_settings(settings_path)
+    experiment = journal["experiment"]
+    context = get_context(experiment, source, org, workspace, settings)
+    publish_to_hub(context, journal_path, journal)
 
     return journal

@@ -107,3 +107,5 @@ junit-test-results.xml
 experiment.json
 discovery.json
 journal.json
+
+.pytest_cache/

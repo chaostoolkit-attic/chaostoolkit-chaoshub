@@ -19,7 +19,8 @@ def login(ctx: click.Context):
     """
     Login to a Chaos Hub.
     """
-    settings = load_settings()
+    settings_path = ctx.obj["settings_path"]
+    settings = load_settings(settings_path)
 
     hub_url = click.prompt(
         click.style("Chaos Hub Url", fg='green'), type=str, show_default=True,
@@ -29,10 +30,10 @@ def login(ctx: click.Context):
         click.style("Chaos Hub Token", fg='green'), type=str, hide_input=True)
 
     set_chaos_hub_settings(hub_url, token, settings)
-    save_settings(settings)
+    save_settings(settings, settings_path)
 
     click.echo("Chaos Hub details saved at {}".format(
-        CHAOSTOOLKIT_CONFIG_PATH))
+        settings_path))
 
 
 @click.command()
@@ -51,9 +52,12 @@ def publish(ctx: click.Context, journal: str, org: str, workspace: str):
     a Chaos Hub and retrieved an access token. You should set that token in the
     configuration file with `chaos login`.
     """
-    settings = load_settings()
+    settings_path = ctx.obj["settings_path"]
+    settings = load_settings(settings_path)
     hub_url = settings.get('vendor', {}).get('chaoshub', {}).get('hub_url')
     token = settings.get('vendor', {}).get('chaoshub', {}).get('token')
 
+    context = get_context(experiment, source, org, workspace, settings)
+
     with io.open(journal) as f:
-        publish_to_hub(hub_url, token, org, workspace, journal, json.load(f))
+        publish_to_hub(context, journal, json.load(f))
