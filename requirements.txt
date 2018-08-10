@@ -1,5 +1,5 @@
-chaostoolkit-lib>=0.18.0
-chaostoolkit>=0.10.0
+chaostoolkit-lib>=0.20.0
+chaostoolkit>=0.15.0
 click
 logzero
 requests
